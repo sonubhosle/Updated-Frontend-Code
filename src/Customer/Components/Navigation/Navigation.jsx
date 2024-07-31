@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import Auth_Modal from '../../../Authentication/Auth_Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, logout } from '../../../State/Auth/Action';
+import { toast} from 'react-toastify';
+
 
 
 function classNames(...classes) {
@@ -74,8 +76,9 @@ const Navigation = () => {
 
 
   const handleLogout = () =>{
-    dispatch(logout())
-    handleCloseUserMenu()
+    dispatch(logout());
+    handleCloseUserMenu();
+    toast.success(' Logout Successfully');
   }
 
 

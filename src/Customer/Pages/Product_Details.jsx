@@ -4,11 +4,12 @@ import { Box, Button, Grid, Rating } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { findProductsById, addItemToCart } from '../../State/Products/Action';
+import { findProductsById } from '../../State/Products/Action';
 import { toast, ToastContainer } from 'react-toastify'; // Import Toastify components
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 import './Style.css';
 import { MdChevronRight } from "react-icons/md";
+import { addItemToCart } from '../../State/Cart/Action';
 
 const product = {
     images: [

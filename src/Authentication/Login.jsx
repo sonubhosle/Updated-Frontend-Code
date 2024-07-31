@@ -1,62 +1,56 @@
-import { Button, Grid, TextField } from '@mui/material'
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import {useDispatch} from 'react-redux'
-import { login } from '../State/Auth/Action'
-const Login = () => {
+import React from 'react';
+import { Button, Grid, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../State/Auth/Action';
+import { toast } from 'react-toastify';
 
+const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
 
+    React.useEffect(() => {
+        if (auth.error) {
+            toast.error(auth.error);
+        } else if (auth.jwt) {
+            toast.success('Login successful!');
+        }
+    }, [auth, navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const data = new FormData(e.currentTarget);
-
         const userData = {
-            password: data.get('password'),
             email: data.get('email'),
-        }
+            password: data.get('password'),
+        };
+        dispatch(login(userData));
+    };
 
-        dispatch(login(userData))
-
-
-    }
     return (
         <div>
+            <ToastContainer   className="custom-toast-container" />
             <form onSubmit={handleSubmit}>
-
                 <Grid container spacing={3}>
-                    <Grid item xs={12} >
-                        <TextField required type='email' id='email' name='email' label="Your Email" fullWidth autoComplete='email' />
+                    <Grid item xs={12}>
+                        <TextField required type='email' id='email' name='email' label="Your Email" fullWidth />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField required type='password' id='password' name='password' label="Your Password" fullWidth autoComplete='password' />
+                        <TextField required type='password' id='password' name='password' label="Your Password" fullWidth />
                     </Grid>
-
-                    <Grid item xs={12} >
-                        <Button type='submit'
-                            className=' w-full'
-                            variant='contained'
-                            size='large'
-                            sx={{ padding: ".8rem 0", bgcolor: "#9155fd" }}
-
-                        >Sign In</Button>
+                    <Grid item xs={12}>
+                        <Button type='submit' variant='contained' size='large' color='primary'>Login</Button>
                     </Grid>
                 </Grid>
-
             </form>
-
             <div className="flex justify-center flex-col items-center">
                 <div className='py-3 flex items-center'>
-                    <p>If You don't have an account
-                        <Button className='ml-5' size="small" onClick={() => navigate('/signup')}>Register</Button>
-                    </p>
+                    <p>Don't have an account? <Button onClick={() => navigate('/signup')}>Sign Up</Button></p>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

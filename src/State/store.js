@@ -3,10 +3,12 @@ import { thunk } from 'redux-thunk';
 import { customerProductReducer } from './Products/Reducer';
 import { authReducer } from './Auth/Reducer';
 
+import { cartReducer } from './Cart/Reducer';
 
 const rootReducers = combineReducers({
     auth:authReducer,
     products:customerProductReducer,
+    cart:cartReducer
 })
 
 

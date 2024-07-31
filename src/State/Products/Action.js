@@ -1,33 +1,51 @@
-import {api} from '../../Config/apiConfig.js'
+import { api } from '../../Config/apiConfig.js';
+import { 
+    FIND_PRODUCT_BY_ID_FAILURE, 
+    FIND_PRODUCT_BY_ID_REQUEST, 
+    FIND_PRODUCT_BY_ID_SUCCESS, 
+    GET_ALL_PRODUCTS_FAILURE, 
+    GET_ALL_PRODUCTS_REQUEST, 
+    GET_ALL_PRODUCTS_SUCCESS 
+} from './ActionTypes.js';
 
-import {GET_ALL_PRODUCTS_FAILURE,GET_ALL_PRODUCTS_SUCCESS,GET_ALL_PRODUCTS_REQUEST, FIND_PRODUCT_BY_ID_REQUEST, FIND_PRODUCT_BY_ID_SUCCESS, FIND_PRODUCT_BY_ID_FAILURE} from './ActionTypes'
 
-export const findProducts = () => async (dispatch) =>{
-    dispatch({type:GET_ALL_PRODUCTS_REQUEST})
+
+export const findProducts = (reqData = {}) => async (dispatch) => {
+    dispatch({ type: GET_ALL_PRODUCTS_REQUEST });
+
+    // Destructure with default values
+    const {
+        colors ,
+        sizes ,
+        minPrice ,
+        maxPrice ,
+        minDiscount,
+        category ,
+        stock ,
+        sort ,
+        pageNumber,
+        pageSize 
+    } = reqData;
+
     try {
-        const {data} = await api.get('/api/products');
+        const { data } = await api.get(`/api/products?color=${colors}&size=${sizes}&minPrice=${minPrice}&maxPrice=${maxPrice}&minDiscount=${minDiscount}&sort=${sort}&category=${category}&stock=${stock}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
 
-        dispatch({type:GET_ALL_PRODUCTS_SUCCESS,payload:data})
-
+        dispatch({ type: GET_ALL_PRODUCTS_SUCCESS, payload: data });
     } catch (error) {
-        dispatch({type:GET_ALL_PRODUCTS_FAILURE, payload: error.message})
+        dispatch({ type: GET_ALL_PRODUCTS_FAILURE, payload: error.message });
     }
-}
+};
 
-export const findProductsById = (reqData) => async (dispatch) => {
+export const findProductsById = (reqData = {}) => async (dispatch) => {
+    dispatch({ type: FIND_PRODUCT_BY_ID_REQUEST });
 
-    dispatch({ type: FIND_PRODUCT_BY_ID_REQUEST })
-
-    const { productId } = reqData;
-
+    // Destructure with default values
+    const { productId = '' } = reqData;
 
     try {
-
-        const { data } = await api.get(`/api/products/id/${productId}`)
-        dispatch({ type: FIND_PRODUCT_BY_ID_SUCCESS, payload: data })
-
+        const { data } = await api.get(`/api/products/id/${productId}`);
+        dispatch({ type: FIND_PRODUCT_BY_ID_SUCCESS, payload: data });
     } catch (error) {
-        dispatch({ type: FIND_PRODUCT_BY_ID_FAILURE, payload: error.message })
+        dispatch({ type: FIND_PRODUCT_BY_ID_FAILURE, payload: error.message });
     }
-
-}
+};

@@ -1,86 +1,88 @@
 import { API_BASE_URL } from '../../Config/apiConfig';
-import { REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS, REGISTER_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, LOGOUT, GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILURE } from './ActionTypes'
-import axios from 'axios'
-const token = localStorage.getItem("jwt");
+import {
+    REGISTER_USER_REQUEST,
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_FAILURE,
+    LOGIN_USER_REQUEST,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_FAILURE,
+    LOGOUT,
+    GET_USER_REQUEST,
+    GET_USER_SUCCESS,
+    GET_USER_FAILURE
+} from './ActionTypes';
+import axios from 'axios';
 
-// FOR REGISTER
+// Action Creators
+const registerRequest = () => ({ type: REGISTER_USER_REQUEST });
+const registerSuccess = (user) => ({ type: REGISTER_USER_SUCCESS, payload: user });
+const registerFailure = (error) => ({ type: REGISTER_USER_FAILURE, payload: error });
 
-const registerRequest = () => ({ type: REGISTER_USER_REQUEST })
-const registerSuccess = (user) => ({ type: REGISTER_USER_SUCCESS, payload: user })
-const registerFailure = (error) => ({ type: REGISTER_USER_FAILURE, payload: error })
+const loginRequest = () => ({ type: LOGIN_USER_REQUEST });
+const loginSuccess = (user) => ({ type: LOGIN_USER_SUCCESS, payload: user });
+const loginFailure = (error) => ({ type: LOGIN_USER_FAILURE, payload: error });
 
-// FOR LOGIN
-const loginRequest = () => ({ type: LOGIN_USER_REQUEST })
-const loginSuccess = (user) => ({ type: LOGIN_USER_SUCCESS, payload: user })
-const loginFailure = (error) => ({ type: LOGIN_USER_FAILURE, payload: error })
+const getUserRequest = () => ({ type: GET_USER_REQUEST });
+const getUserSuccess = (user) => ({ type: GET_USER_SUCCESS, payload: user });
+const getUserFailure = (error) => ({ type: GET_USER_FAILURE, payload: error });
 
-// FOR GET USER
-const getUserRequest = () => ({ type: GET_USER_REQUEST })
-const getUserSuccess = (user) => ({ type: GET_USER_SUCCESS, payload: user })
-const getUserFailure = (error) => ({ type: GET_USER_FAILURE, payload: error })
+// Helper function to save JWT
+const saveJwt = (jwt) => {
+    localStorage.setItem("jwt", jwt);
+};
 
-
-export const register = (userData) => async (dispatch) =>{
+// Thunk actions
+export const register = (userData) => async (dispatch) => {
     dispatch(registerRequest());
     try {
-
-        const response = await axios.post(`${API_BASE_URL}/auth/signup`,userData);
+        const response = await axios.post(`${API_BASE_URL}/auth/signup`, userData);
         const user = response.data;
 
-        if(user.jwt){
-            localStorage.setItem("jwt",user.jwt)
+        if (user.jwt) {
+            saveJwt(user.jwt);
+            dispatch(registerSuccess(user));
+        } else {
+            dispatch(registerFailure('Email Already Exist'));
         }
-
-        dispatch(registerSuccess(user.jwt))
-        
     } catch (error) {
-        dispatch(registerFailure(error.message))
+        dispatch(registerFailure(error.response?.data?.message || 'Email Already Exist'));
     }
-}
+};
 
-export const login = (userData) => async (dispatch) =>{
-    dispatch(registerRequest());
+export const login = (userData) => async (dispatch) => {
+    dispatch(loginRequest());
     try {
-
-        const response = await axios.post(`${API_BASE_URL}/auth/signin`,userData);
+        const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
         const user = response.data;
 
-        if(user.jwt){
-            localStorage.setItem("jwt",user.jwt)
+        if (user.jwt) {
+            saveJwt(user.jwt);
+            dispatch(loginSuccess(user));
+        } else {
+            dispatch(loginFailure('Login failed'));
         }
-
-        dispatch(registerSuccess(user.jwt))
-        
     } catch (error) {
-        dispatch(registerFailure(error.message))
+        dispatch(loginFailure(error.response?.data?.message || 'Email or password is incorrect'));
     }
-}
+};
 
 export const getUser = (jwt) => async (dispatch) => {
-
-    dispatch(getUserRequest())
-
+    dispatch(getUserRequest());
     try {
-
         const response = await axios.get(`${API_BASE_URL}/api/users/profile`, {
             headers: {
-                "Authorization": `Bearer ${jwt}`
-            }
+                Authorization: `Bearer ${jwt}`,
+            },
         });
 
-      const user = response.data;
-
-
-        dispatch(getUserSuccess(user))
-
+        const user = response.data;
+        dispatch(getUserSuccess(user));
     } catch (error) {
-        dispatch(getUserFailure(error.message));
+        dispatch(getUserFailure(error.response?.data?.message || 'Failed to fetch user data'));
     }
+};
 
-}
-
-// FOR LOGOUT
 export const logout = () => (dispatch) => {
-    dispatch({ type: LOGOUT, payload: null })
+    dispatch({ type: LOGOUT });
     localStorage.clear();
-}
+};
