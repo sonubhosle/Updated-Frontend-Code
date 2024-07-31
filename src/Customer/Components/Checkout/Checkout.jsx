@@ -6,8 +6,8 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useLocation } from 'react-router-dom';
-import Order_Summery from './Order_Summery';
-import Delivery_Address from './Delivery_Address';
+import DeliveryAddress from './Delivery_Address';
+import OrderSummmery from './Order_Summery';
 
 const steps = ['Login', 'Delivery Address', 'Order Summery', 'Payment'];
 
@@ -74,7 +74,7 @@ const Checkout = () => {
             </Box>
             <div className='mt-10'>
               {
-                (step == 2 ? <Delivery_Address /> : <Order_Summery />)
+                (step == 2 ? <DeliveryAddress /> : <OrderSummmery />)
               }
             </div>
           </>

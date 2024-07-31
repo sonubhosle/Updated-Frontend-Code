@@ -6,13 +6,15 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Style.css';
 import Order_Card from '../Cards/Order_Card';
+import { Button } from '@mui/material';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const auth = useSelector(state => state.auth);
-  const [addresses, setAddresses] = useState([]);
+  const order = useSelector(state => state.order)
 
+  const [addresses, setAddresses] = useState([]);
   useEffect(() => {
     if (auth.user && auth.user.address) {
       setAddresses(auth.user.address);
@@ -27,7 +29,6 @@ const Profile = () => {
           Authorization: `Bearer ${jwt}`
         }
       });
-      // Update the local state after successful deletion
       const updatedAddresses = addresses.filter(address => address._id !== id);
       setAddresses(updatedAddresses);
       // Show a toast notification
@@ -38,6 +39,8 @@ const Profile = () => {
     }
   };
 
+
+
   useEffect(() => {
     if (jwt) {
       dispatch(getUser(jwt));
@@ -47,6 +50,9 @@ const Profile = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
+
+
+
 
   return (
     <div className='user_profile'>
@@ -89,13 +95,42 @@ const Profile = () => {
       </div>
       <h2>{auth.user?.firstName}'s Orders</h2>
 
-      <div className="orders flex">
-        <div className="order">
-            {
-                [1,1,1,1,1,1,1,,1,1,1,1,1].map((item,index) => <Order_Card order={item} key={index} />)
-            }
+      <div className="lg:grid grid-cols-3 relative">
+        <div className='col-span-2'>
+          {
+            order.order?.orderItems.map((item, index) => <Order_Card item={item} key={index} />)
+          }
         </div>
-        <div className="order_price">Price</div>
+
+        <div className="px-5 sticky top-0 h-auto mt-5 lg:mt-0 ">
+          <div className="border rounded-md p-5 bg-white ">
+            <p className='uppercase font-bold opacity-60 pb-4'>Price Details</p>
+            <hr />
+            <div className="space-y-2 ">
+              <div className="flex justify-between pt-2 text-black ">
+                <span>Price</span>
+                <span>₹{order.order?.totalPrice}</span>
+              </div>
+              <div className="flex justify-between pt-2 ">
+                <span>Discount</span>
+                <span className=' text-green-600'>-₹{order.order?.discount}</span>
+              </div>
+              <div className="flex justify-between pt-2 text-black ">
+                <span>Delivery Charge</span>
+                <span>Free</span>
+              </div>
+              <hr />
+              <div className="flex justify-between pt-3 text-black font-bold ">
+                <span>Total Amount</span>
+                <span className=' text-green-600'>₹{order.order?.totalDiscountPrice}</span>
+              </div>
+            </div>
+            <Button variant='contained' className='w-full' sx={{ px: '2rem', py: '.7rem', mt: "2rem", bgcolor: "#9155fd" }} >
+              Checkout
+            </Button>
+          </div>
+        </div>
+
       </div>
     </div>
   );

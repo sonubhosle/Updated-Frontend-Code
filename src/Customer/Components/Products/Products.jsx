@@ -29,7 +29,7 @@ const Products = () => {
   const navigate = useNavigate();
   const param = useParams()
   const dispatch = useDispatch()
-  const { products } = useSelector(store => store)
+  const  products  = useSelector(state => state.products)
 
   const decodedQueryString = decodeURIComponent(location.search);
 

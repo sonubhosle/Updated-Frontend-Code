@@ -11,7 +11,7 @@ const Cart = () => {
     const navigate = useNavigate()
     const dispath = useDispatch()
 
-    const { cart } = useSelector(store => store)
+    const  cart  = useSelector(state => state.cart)
     const handleCheckout = () => {
         navigate('/checkout?step=2')
     }
@@ -24,7 +24,7 @@ const Cart = () => {
 
     return (
         <div className='mt-10 mb-10 p-5 rounded-md bg-white'>
-            <h2 className='text-2xl font-bold   pb-5'>Cart Details</h2>
+            <h2 className='text-2xl font-bold   pb-5'>Cart Details Items({ cart.cart?.cartItems.length})</h2>
             <div className="lg:grid  grid-cols-3 relative">
                 <div className='col-span-2'>
                     {

@@ -49,7 +49,7 @@ const ProductDetails = () => {
     const dispatch = useDispatch();
     const params = useParams();
 
-    const { products } = useSelector(store => store);
+    const  products  = useSelector(state => state.products);
 
     const handleAddTocart = () => {
         const data = { productId: params.productId, size: selectedSize.name };

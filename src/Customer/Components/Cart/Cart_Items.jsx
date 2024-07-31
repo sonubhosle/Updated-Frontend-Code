@@ -22,7 +22,7 @@ const Cart_Items = ({item}) => {
 
 
     return (
-        <div className='p-3 mb-4 border-light box-shadow border-radius '>
+        <div className='p-3 mb-4 border-light box-shadow border-radius box-shadow '>
             <div className="flex ">
                 <div className="w-[5rem] h-[5rem] lg:w-[9rem] lg:h-[9rem]">
                     <img className='w-full h-full object-cover object-top' src={item.product.imageUrl} alt="" />
