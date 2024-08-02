@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AdjustIcon from '@mui/icons-material/Adjust';
 import { deleteOrder } from '../../../State/Order/Action';
 import './Style.css';
+import { toast } from 'react-toastify';
 
 const Order_Card = ({ order }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const Order_Card = ({ order }) => {
 
   const handleDeleteClick = (orderId) => {
     dispatch(deleteOrder(orderId));
+    toast.success('Order deleted successfully!');
+
   };
 
   return (
@@ -32,7 +35,7 @@ const Order_Card = ({ order }) => {
               <div className='text-[17px] flex items-center gap-1 pt-2 font-semibold text-sm text-indigo-600'>₹{orderItem.product.price}</div>
               <div className="absolute flex gap-4 bottom-3 right-3">
                 <button className='rounded-sm text-[14px] bg-indigo-700 text-white pt-1 pb-1 pl-3 pr-3' onClick={() => handleOrderClick(order._id)}>View</button>
-                <button className='rounded-sm text-[14px] bg-pink-700 text-white pt-1 pb-1 pl-3 pr-3' onClick={() => handleDeleteClick(order._id)}>Delete</button>
+                <button className='rounded-sm text-[14px] bg-pink-700 text-white pt-1 pb-1 pl-3 pr-3' onClick={() => handleDeleteClick(order._id)}>Cancel</button>
               </div>
             </div>
             <div className='delivery_status'>

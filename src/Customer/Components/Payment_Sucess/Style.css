@@ -1,0 +1,22 @@
+.order_card{
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-top: 30px;
+}
+.order{
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    box-shadow: rgba(0,0,0,0.090) 0px 0px 15px 0px;
+    border-radius: 3px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+.order img{
+   width: 150px;
+   height:150px;
+   object-fit: cover;
+   object-position: top center;
+}

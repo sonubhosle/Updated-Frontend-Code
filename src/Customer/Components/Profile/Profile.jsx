@@ -47,7 +47,7 @@ const Profile = () => {
           Authorization: `Bearer ${jwt}`,
         },
       });
-      console.log(response);
+
       setAddresses(response.data);
     } catch (error) {
       console.log(error.message);

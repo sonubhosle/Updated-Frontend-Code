@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useLocation } from 'react-router-dom';
 import DeliveryAddress from './Delivery_Address';
 import OrderSummmery from './Order_Summery';
-
+import './Style.css'
 const steps = ['Login', 'Delivery Address', 'Order Summery', 'Payment'];
 
 const Checkout = () => {
