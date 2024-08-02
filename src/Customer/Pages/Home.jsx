@@ -1,13 +1,15 @@
 import React from 'react'
-import Home_Carousel from '../Components/Home_Carousel/Home_Carousel'
 import Home_Products from '../Components/Products/Home_Products'
 import '../Components/Products/Style.css'
+import SectionCarousel from '../Components/Products/Section_Carousel'
+import Home_Carousel from '../Components/Carousel/Home_Carousel'
 const Home = () => {
   return (
     <div className='home_section'>
         <Home_Carousel />
+        <SectionCarousel />
         <Home_Products />
-        {/* <Products_Carousel /> */}
+       
     </div>
   )
 }

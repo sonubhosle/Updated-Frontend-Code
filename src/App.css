@@ -56,3 +56,60 @@ html,body{
   .border{
     border: 1px solid #f8f8f8;
   }
+
+
+  .slider-section{
+    width: 100%;
+    margin: 20px auto 0px auto;
+    padding: 15px 10px;
+    height: auto;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    /* border: 1px solid #eeeeee; */
+    border-radius: 4px;
+    position: relative;
+    
+  }
+
+
+  
+  .button-group{
+    width: 95%;
+    height: auto;
+    margin: -160px auto;
+    background-color: transparent;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 88;
+    position: absolute;
+    right: 50px;
+  }
+  
+  
+   .prev-btn{
+    position: absolute;
+    background-color: #fff;
+    height: 40px;
+    width: 40px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.042) 0px 0px 8px 0px;
+    border: 1px solid #eeeeee;
+    z-index: 9;
+    right: 50px;
+    top: -370px
+   }
+   .next-btn{
+    position: absolute;
+    background-color: #fff;
+    height: 40px;
+    width: 40px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.042) 0px 0px 8px 0px;
+    right: 0;
+    border: 1px solid #eeeeee;
+    z-index:  9 ;
+    top: -370px
+  
+   }

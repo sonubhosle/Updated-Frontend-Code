@@ -22,7 +22,7 @@ const Product_Card = ({product}) => {
           </div>
           <div className="rating_stock">
             <div className="rating">4.5 <FaStar className='flex items-center' size={13} /></div>
-            <div className="stock">stock:{product?.quantity}</div>
+            <div className="stock">Stock:{product?.quantity}</div>
           </div>
         </div>
     </div>

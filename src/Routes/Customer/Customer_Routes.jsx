@@ -1,20 +1,21 @@
-import React from 'react'
+import React,{lazy,Suspense} from 'react'
 import {Route,Routes} from 'react-router-dom'
-import Navigation from '../../Customer/Components/Navigation/Navigation'
-import Footer from '../../Customer/Components/Footer/Footer'
-import Home from '../../Customer/Pages/Home'
-import Products from '../../Customer/Components/Products/Products'
-import Product_Details from '../../Customer/Pages/Product_Details'
-import Cart from '../../Customer/Components/Cart/Cart'
-import Checkout from '../../Customer/Components/Checkout/Checkout'
-import Orders from '../../Customer/Components/Orders/Orders'
-import Order_Details from '../../Customer/Pages/Order_Details'
-import Payment_Sucess from '../../Customer/Components/Payment_Sucess/Payment_Sucess'
-import Profile from '../../Customer/Components/Profile/Profile'
+const Navigation = lazy(() =>  import('../../Customer/Components/Navigation/Navigation'));
+const Footer = lazy(() => import('../../Customer/Components/Footer/Footer'));
+const  Home = lazy(()=> import('../../Customer/Pages/Home'));
+const  Products = lazy(()=> import('../../Customer/Components/Products/Products'));
+const  Product_Details = lazy(()=> import('../../Customer/Pages/Product_Details'));
+const  Cart = lazy(()=> import('../../Customer/Components/Cart/Cart')); 
+const  Checkout = lazy(()=> import('../../Customer/Components/Checkout/Checkout')); 
+const  Orders = lazy(()=> import('../../Customer/Components/Orders/Orders')); 
+const  Order_Details = lazy(()=> import('../../Customer/Pages/Order_Details'));
+const  Payment_Sucess = lazy(()=> import('../../Customer/Components/Payment_Sucess/Payment_Sucess')); 
+const  Profile = lazy(()=> import('../../Customer/Components/Profile/Profile'));
+import Loading from '../../Customer/Components/Loading/Loading'
 
 const Customer_Routes = () => {
   return (
-    <div>
+    <Suspense fallback={<Loading />}>
      <Navigation />
         <Routes>
         <Route path='/login' element={<Home />} />
@@ -31,7 +32,7 @@ const Customer_Routes = () => {
                 <Route path='/payment/:orderId' element={<Payment_Sucess />} />
         </Routes>
         <Footer />
-    </div>
+    </Suspense>
   )
 }
 

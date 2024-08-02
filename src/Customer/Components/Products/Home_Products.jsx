@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Product_Card from '../Cards/Product_Card';
 import axios from 'axios';
+import Loading from '../Loading/Loading';
 
 const Home_Products = () => {
   const [products, setProducts] = useState(null);
@@ -21,24 +22,25 @@ const Home_Products = () => {
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
-    <div className='products_grid p-5'>
-      {products && products.content ? (
+<>
+<h2 className='heading text=[20px]'>Products</h2>
+<div className='products_grid p-5'>
+      {loading ? (
+        <div className="loading_products">
+          <span class="loader"></span>
+        </div>
+      ) : error ? (
+        <div>{error}</div>
+      ) : products && products.content && products.content.length > 0 ? (
         products.content.map((item, index) => (
           <Product_Card product={item} key={index} />
         ))
       ) : (
-        <div>No products available.</div>
+        <div className='error'>No Products Found</div>
       )}
     </div>
+</>
   );
 };
 

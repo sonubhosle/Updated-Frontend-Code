@@ -13,6 +13,7 @@ import Auth_Modal from '../../../Authentication/Auth_Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, logout } from '../../../State/Auth/Action';
 import { toast} from 'react-toastify';
+import { getCart } from '../../../State/Cart/Action';
 
 
 
@@ -74,6 +75,10 @@ const Navigation = () => {
   
   }, [auth.user])
 
+  
+  useEffect(() => {
+    dispatch(getCart())
+}, [])
 
   const handleLogout = () =>{
     dispatch(logout());

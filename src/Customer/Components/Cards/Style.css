@@ -1,0 +1,139 @@
+
+.order_card{
+    position: relative;
+
+}
+
+.order_items{
+   background-color: #fff;
+   padding: 5px;
+   height: auto;
+   width: 100%;
+   position: relative;
+   margin: 0px 0px 15px 0px;
+   border-radius: 4px;
+   box-shadow: rgba(0,0,0,0.090) 0px 5px 15px 0px;
+   display: flex;
+   gap: 15px;
+}
+
+.order_items img{
+    width: 100px;
+    height: 110px;
+    object-fit: cover;
+    object-position: top center;
+}
+
+
+.order_items .delivery_status{
+    display: flex;
+    flex-grow: 1;
+    justify-content: right;
+    padding:  0px 10px;
+    flex-direction: column;
+    text-align: right;
+}
+
+
+.product_carousel_card{
+     width: 250px;
+     height: auto;
+     position: relative;
+     background-color: #fff;
+     padding: 10px;
+     border-radius: 3px;
+     box-shadow: rgba(0,0,0,0.090) 0px 0px 6px 0px;
+}
+
+.product_carousel_card .poster{
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+.product_carousel_card .poster img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+
+
+
+
+.product_carousel_card .product_info{
+    width: 100%;
+    height: auto;
+    position: relative;
+   transition: 0.5s linear;
+   padding: 10px 0px;
+   background-color: #fff;
+}
+
+.product_carousel_card .product_info .brand{
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #585859;
+}
+
+.product_carousel_card .title{
+    font-size: 17px;
+    font-weight: 500;
+    color: #333;
+    margin: 2px 0px 6px 0px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.product_carousel_card .product_info .price_box .discounted_price {
+       font-weight: 500;
+       color: #333;
+       font-size: 22px;
+}
+
+.product_carousel_card .product_info .price_box .price {
+    color: #585859;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.product_carousel_card .product_info .price_box .discount{
+    color: teal;
+    font-size: 14px;
+}
+
+.product_carousel_card .product_info .rating_stock{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 1%;
+    margin-top: 10px;
+}
+
+.product_carousel_card .product_info .rating_stock .rating{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 15px;
+    background-color: #6506a8;
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+
+.product_carousel_card .product_info .rating_stock .stock{
+    font-size: 14px;
+    background-color: #6506a81c;
+    padding: 0px 5px;
+  border-radius: 2px;
+}
+.product_carousel_card:hover .product_info{
+    transform: translateY(-15px);
+}
+
+
+
