@@ -24,7 +24,8 @@ export const addItemToCart = (reqData) => async (dispatch) => {
 
         const { data } = await api.put("/api/cart/add", reqData);
 
-        dispatch({ type: ADD_ITEM_TO_CART_SUCCESS, payload: data })
+        dispatch({ type: ADD_ITEM_TO_CART_SUCCESS, payload: data });
+        
 
     } catch (error) {
         dispatch({ type: ADD_ITEM_TO_CART_FAILURE, payload: error.message })

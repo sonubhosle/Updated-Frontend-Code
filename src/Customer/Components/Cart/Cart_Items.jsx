@@ -3,22 +3,25 @@ import React from 'react'
 import { IoAddCircleOutline, IoRemoveCircleOutline } from 'react-icons/io5'
 import { useDispatch } from 'react-redux'
 import { removeCartItem, updateCartItem } from '../../../State/Cart/Action'
+import { toast } from 'react-toastify'
 
 const Cart_Items = ({item}) => {
     const dispatch = useDispatch()
 
     const handleUpdateCartItem = (num) => {
-
         const data = { data: { quantity: item.quantity + num }, cartItemId: item?._id }
-
         dispatch(updateCartItem(data));
 
     }
 
-    const handleRemoveCartItem = () => {
-        dispatch(removeCartItem(item._id))
+    const handleRemoveCartItem = async () => {
+        try {
+            await dispatch(removeCartItem(item._id));
+            toast.success('Cart item removed successfully');
+        } catch (error) {
+            toast.error('Something went wrong');
+        }
     }
-
 
 
     return (

@@ -4,6 +4,7 @@ import Signup from './Signup';
 import Login from './Login';
 import { useLocation } from 'react-router-dom';
 
+// Style Popup Box
 const style = {
   position: 'absolute',
   top: '50%',
@@ -17,6 +18,7 @@ const style = {
 };
 
 
+// Reciving State Handle Close Or Open
 
 const Auth_Modal = ({handleClose,open}) => {
 
